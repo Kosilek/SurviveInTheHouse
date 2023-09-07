@@ -148,5 +148,10 @@ public class Inventory : Singleton<Inventory>
         (_item[startIndex], _item[endIndex]) = (_item[endIndex], _item[startIndex]);
     }
 
+    public Item Get_ComponentItem(int i)
+    {
+        return _item[i];
+    }
+
     #endregion
 }

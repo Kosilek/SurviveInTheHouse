@@ -12,8 +12,8 @@ public class Item : MonoBehaviour
     public string pathIcon;
     public string pathPrefab;
     public int _cost;
-
     public bool _dropItem;
+    public TypeItem _itemType;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,4 +22,14 @@ public class Item : MonoBehaviour
             Inventory.Instance.PickupTrigger(gameObject, _isStackable, _id, _countItem);
         }
     }
+}
+public enum TypeItem
+{
+    weapon,
+    ammo,
+    helmet,
+    bib,
+    trousers, 
+    boots,
+    other
 }

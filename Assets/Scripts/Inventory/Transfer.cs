@@ -48,18 +48,94 @@ public class Transfer
         }
         else if (indexEnd >= 0)
         {
-            if (currEnd._typeCell == TypeCell.delete)
+            Item itemStart = inventory.Get_ComponentItem(indexStart);
+            switch (currEnd._typeCell)
             {
-                DeleteItemCell(currStart, inventory, vec, rectStart);
-                return;
+                case TypeCell.delete:
+                    DeleteItemCell(currStart, inventory, vec, rectStart);
+                    break;
+
+                case TypeCell.cell:
+                    if (indexStart != indexEnd)
+                        ExchangeCell(inventory, indexStart, indexEnd, rectStart, vec);
+                    break;
+
+                case TypeCell.weapon:
+                    UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.weapon, itemStart);
+                    break;
+
+                case TypeCell.ammo:
+                    UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.ammo, itemStart);
+                    break;
+
+                case TypeCell.helmet:
+                    UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.helmet, itemStart);
+                    break;
+
+                case TypeCell.bib:
+                    UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.bib, itemStart);
+                    break;
+
+                case TypeCell.trousers:
+                    UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.trousers, itemStart);
+                    break;
+
+                case TypeCell.boots:
+                    UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.boots, itemStart);
+                    break;
             }
-            else if (currEnd._typeCell == TypeCell.cell && indexStart != indexEnd)
+        /*    if (currEnd._typeCell != TypeCell.delete && currEnd._typeCell != TypeCell.delete)
             {
-                ExchangeCell(inventory, indexStart, indexEnd, rectStart, vec);
+                Item itemStart = inventory.Get_ComponentItem(indexStart);
+                switch (currStart._typeCell)
+                {
+                    case TypeCell.weapon:
+                        UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.weapon, itemStart);
+                        break;
+                    case TypeCell.ammo:
+                        UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.ammo, itemStart);
+                        break;
+                    case TypeCell.helmet:
+                        UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.helmet, itemStart);
+                        break;
+                    case TypeCell.bib:
+                        UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.bib, itemStart);
+                        break;
+                    case TypeCell.trousers:
+                        UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.trousers, itemStart);
+                        break;
+                    case TypeCell.boots:
+                        UpdateItemPlayer(inventory, indexStart, indexEnd, rectStart, vec, TypeItem.boots, itemStart);
+                        break;
+                }
             }
-        }      
+            else
+            {
+                switch (currEnd._typeCell)
+                {
+                    case TypeCell.delete:
+                        DeleteItemCell(currStart, inventory, vec, rectStart);
+                        break;
+                    case TypeCell.cell:
+                        if (indexStart != indexEnd)
+                            ExchangeCell(inventory, indexStart, indexEnd, rectStart, vec);
+                        break;
+                }
+            }*/
+        }
     }
 
+    private void UpdateItemPlayer(Inventory inventory, int indexStart, int indexEnd, RectTransform rectStart, Vector2 vec, TypeItem typeItem, Item itemStart)
+    {
+        if (itemStart._itemType == typeItem)
+        {
+            ExchangeCell(inventory, indexStart, indexEnd, rectStart, vec);
+        }
+        else if (itemStart._itemType != typeItem)
+        {
+            ReturnCell(rectStart, vec);
+        }
+    }
     private void ReturnCell(RectTransform rectStart, Vector2 vec)
     {
         rectStart.anchoredPosition = new Vector2(vec.x, vec.y);   
